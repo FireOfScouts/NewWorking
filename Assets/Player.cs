@@ -30,6 +30,7 @@ public class Player : NetworkBehaviour {
 //	}
 
 	public string GetPlayerName(){
+		playerName = nameInput.GetComponent<Text>().text;
 		return playerName;
 	}
 
