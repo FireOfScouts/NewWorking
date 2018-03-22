@@ -14,7 +14,7 @@ public class Player : NetworkBehaviour {
 		nameInput = GameObject.Find("NameInput").GetComponent<InputField>();
 		if (isLocalPlayer) {
 			if (isServer) {
-				Destroy (nameInput.transform.parent.gameObject);
+				Destroy (nameInput.gameObject);
 				Destroy (this.gameObject);
 				return;
 			}
@@ -28,6 +28,10 @@ public class Player : NetworkBehaviour {
 //		Game
 //	
 //	}
+
+	public string GetPlayerName(){
+		return playerName;
+	}
 
 	[Command]
 	void CmdAddPlayer(){

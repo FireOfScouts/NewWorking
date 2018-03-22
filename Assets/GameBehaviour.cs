@@ -25,7 +25,7 @@ public class GameBehaviour : NetworkBehaviour {
 
 	void ShowNames(){
 		foreach (Player p in players)
-			Debug.Log (p.name);
+			Debug.Log (p.GetComponent<Player>().GetPlayerName());
 	}
 
 	public void AddPlayer(Player p){
