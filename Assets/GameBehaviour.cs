@@ -12,8 +12,11 @@ public class GameBehaviour : NetworkBehaviour {
 
 	public List<char> CardType = new List<char> (4){'C','D','H','S'};
 	public List<char> CardValue = new List<char> (13){'2','3','4','5','6','7','8','9','1','J','Q','K','A'};
-    List<Card> Deck;
+
     public Button StartGame;
+
+	public List<Card>Deck;
+
 
 	void Start () {
 		if (GameBehaviour.gb == null)
@@ -22,10 +25,17 @@ public class GameBehaviour : NetworkBehaviour {
 			Destroy (this.gameObject);
 		DontDestroyOnLoad (this);
 		players = new List<Player> ();
+
         Instantiate(StartGame);
 //		int ie = Enum.GetNames (typeof(CardType)).Length;
 //		int je = enum.GetNam
 //		for (int i =0; i< j ;i++)
+
+
+		for (int i = 0; i < CardType.Count; i++)
+			for (int j = 0; j < CardValue.Count; j++)
+				Deck.Add (new Card (CardType [i], CardValue [j]));
+
 			
 	}
 
@@ -33,6 +43,14 @@ public class GameBehaviour : NetworkBehaviour {
 //		Debug.Log ("Amount of players connected: " + players.Count);
 		if (Input.GetKeyDown(KeyCode.Q))
 			AskNames ();
+	}
+
+	public Card RandomCardFromDeck(){
+		int rndm = Random.Range (0,Deck.Count);
+		Card c = Deck [rndm];
+		Deck.Remove (Deck [rndm]);
+		Deck.TrimExcess ();
+		return c;
 	}
 
 	void AskNames(){
