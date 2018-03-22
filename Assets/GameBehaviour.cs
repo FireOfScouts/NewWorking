@@ -20,12 +20,16 @@ public class GameBehaviour : NetworkBehaviour {
 	void Update () {
 		Debug.Log ("Amount of players connected: " + players.Count);
 		if (Input.GetKeyDown(KeyCode.Q))
-		ShowNames ();
+		AskNames ();
 	}
 
-	void ShowNames(){
-		foreach (Player p in players)
+	void AskNames(){
+//		foreach (Player p in players)
 			p.RpcName();
+	}
+
+	public void RecieveNames(string n){
+		Debug.Log (n);
 	}
 
 	public void AddPlayer(Player p){
