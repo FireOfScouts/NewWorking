@@ -52,7 +52,7 @@ public class Player : NetworkBehaviour {
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
 	}
     [Command]
-    void CmdGiveCard(){
-        GameBehaviour.gb.RecieveCard();
+    void CmdGiveCard(GameObject card){
+        GameBehaviour.gb.RecieveCard(card.GetComponent<Card>());
     }
 }
