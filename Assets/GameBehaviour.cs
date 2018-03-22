@@ -8,8 +8,8 @@ public class GameBehaviour : NetworkBehaviour {
 	public static GameBehaviour gb;
 	List<Player> players;
 
-	public enum CardType{}
-	public enum CardValue{}
+	public List<char> CardType = new List<char> (4){'C','D','H','S'};
+	public List<char> CardValue = new List<char> (13){'2','3','4','5','6','7','8','9','1','J','Q','K','A'};
 	List<Card> Deck;
 
 	void Start () {
