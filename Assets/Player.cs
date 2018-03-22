@@ -8,10 +8,14 @@ public class Player : NetworkBehaviour {
 
 	
 	void Start () {
-		if (isServer && isLocalPlayer)
-			Destroy (this.gameObject);
-		if(isLocalPlayer)
+		if (isLocalPlayer) {
+			if (isServer) {
+				Debug.Log ("Destroying ServerSided spawned player.");
+				Destroy (this.gameObject);
+				return;
+			}
 			CmdAddPlayer ();
+		}
 	}
 
 	[Command]
