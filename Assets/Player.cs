@@ -30,7 +30,8 @@ public class Player : NetworkBehaviour {
 //	}
 	[ClientRpc]
 	public void RpcName(){
-		CmdGetPlayerName(nameInput.gameObject.transform.GetChild(1).GetComponent<Text>().text);
+		if(isLocalPlayer)
+			CmdGetPlayerName(nameInput.gameObject.transform.GetChild(1).GetComponent<Text>().text);
 	}
 
 	[Command]
