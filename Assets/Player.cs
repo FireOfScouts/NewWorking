@@ -11,8 +11,8 @@ public class Player : NetworkBehaviour {
 	public string playerName;
 	
 	void Start () {
-		nameInput = GameObject.Find("NameInput").GetComponent<InputField>();
 		if (isLocalPlayer) {
+			nameInput = GameObject.Find("NameInput").GetComponent<InputField>();
 			if (isServer) {
 				Destroy (nameInput.gameObject);
 				Destroy (this.gameObject);
@@ -28,10 +28,15 @@ public class Player : NetworkBehaviour {
 //		Game
 //	
 //	}
-
-	public string GetPlayerName(){
+	[ClientRpc]
+	public void RpcGetPlayerName(){
 		playerName = nameInput.GetComponent<Text>().text;
-		return playerName;
+		CmdShowPlayerName ();
+	}
+
+	[Command]
+	void CmdShowPlayerName(){
+		Debug.Log (playerName);
 	}
 
 	[Command]
