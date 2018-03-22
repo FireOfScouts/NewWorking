@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class GameBehaviour : NetworkBehaviour {
 
+    List<Card>Table;
 	public static GameBehaviour gb;
 	List<Player> players;
 
@@ -58,4 +59,7 @@ public class GameBehaviour : NetworkBehaviour {
 				return i;
 		return -1;
 	}
+    public void RecieveCard(Card){
+    
+    }
 }
