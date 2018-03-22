@@ -8,7 +8,9 @@ public class Player : NetworkBehaviour {
 
 	
 	void Start () {
-		if(isLocalPlayer || !isServer)
+		if (isServer && isLocalPlayer)
+			Destroy (this.gameObject);
+		if(isLocalPlayer)
 			CmdAddPlayer ();
 	}
 
