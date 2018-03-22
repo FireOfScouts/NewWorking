@@ -19,9 +19,22 @@ public class GameBehaviour : NetworkBehaviour {
 
 	void Update () {
 		Debug.Log ("Amount of players connected: " + players.Count);
+		if (Input.GetKeyDown(KeyCode.Q))
+		ShowNames ();
+	}
+
+	void ShowNames(){
+		foreach (Player p in players)
+			Debug.Log (p.name);
 	}
 
 	public void AddPlayer(Player p){
 		players.Add (p);
+	}
+	public int GetPlayernumber(Player p){
+		for (int i = 0; i < players.Count; i++)
+			if (players [i] == p)
+				return i;
+		return -1;
 	}
 }
