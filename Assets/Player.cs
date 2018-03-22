@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Player : NetworkBehaviour {
-
+    List <Card>hand;
 	InputField nameInput;
 	[SyncVar]
 	public string playerName;
@@ -51,4 +51,8 @@ public class Player : NetworkBehaviour {
 	void CmdDefaultName(){
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
 	}
+    [Command]
+    void CmdGiveCard(){
+        
+    }
 }

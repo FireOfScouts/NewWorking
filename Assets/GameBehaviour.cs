@@ -26,7 +26,7 @@ public class GameBehaviour : NetworkBehaviour {
 	}
 
 	void Update () {
-		Debug.Log ("Amount of players connected: " + players.Count);
+//		Debug.Log ("Amount of players connected: " + players.Count);
 		if (Input.GetKeyDown(KeyCode.Q))
 			AskNames ();
 	}
