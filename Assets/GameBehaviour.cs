@@ -8,6 +8,10 @@ public class GameBehaviour : NetworkBehaviour {
 	public static GameBehaviour gb;
 	List<Player> players;
 
+	public enum CardType{}
+	public enum CardValue{}
+	List<Card> Deck;
+
 	void Start () {
 		if (GameBehaviour.gb == null)
 			GameBehaviour.gb = this;
@@ -15,12 +19,16 @@ public class GameBehaviour : NetworkBehaviour {
 			Destroy (this.gameObject);
 		DontDestroyOnLoad (this);
 		players = new List<Player> ();
+//		int ie = Enum.GetNames (typeof(CardType)).Length;
+//		int je = enum.GetNam
+//		for (int i =0; i< j ;i++)
+			
 	}
 
 	void Update () {
 //		Debug.Log ("Amount of players connected: " + players.Count);
 		if (Input.GetKeyDown(KeyCode.Q))
-		AskNames ();
+			AskNames ();
 	}
 
 	void AskNames(){
