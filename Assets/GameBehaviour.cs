@@ -46,10 +46,6 @@ public class GameBehaviour : NetworkBehaviour {
 			p.RpcName();
 	}
 
-	public void RecieveNames(string n){
-		Debug.Log (n);
-	}
-
 	public void AddPlayer(Player p){
 		players.Add (p);
 	}

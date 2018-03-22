@@ -32,14 +32,15 @@ public class Player : NetworkBehaviour {
 
 	[ClientRpc]
 	public void RpcName(){
-		if(isLocalPlayer)
-			CmdGetPlayerName(nameInput.textComponent.text);
+		if (isLocalPlayer) {
+			nameInput.gameObject.SetActive (false);
+			CmdGetPlayerName (nameInput.textComponent.text);
+		}
 	}
 
 	[Command]
 	void CmdGetPlayerName(string n){
 		playerName = n;
-		GameBehaviour.gb.RecieveNames (playerName);
 	}
 
 	[Command]
