@@ -53,6 +53,6 @@ public class Player : NetworkBehaviour {
 	}
     [Command]
     void CmdGiveCard(){
-        
+        GameBehaviour.gb.RecieveCard();
     }
 }
