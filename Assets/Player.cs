@@ -23,11 +23,13 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
-//	[Command]
-//	public void CmdShowName(string n){
-//		Game
-//	
-//	}
+	void Update(){
+		if (!isLocalPlayer)
+			return;
+//		if(Input.GetKeyDown(KeyCode.Escape))
+//			NetworkClient.
+	}
+
 	[ClientRpc]
 	public void RpcName(){
 		if(isLocalPlayer)
