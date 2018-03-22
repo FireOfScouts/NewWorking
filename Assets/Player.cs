@@ -26,9 +26,30 @@ public class Player : NetworkBehaviour {
 	void Update(){
 		if (!isLocalPlayer)
 			return;
+
+        MouseRaycast();
 //		if(Input.GetKeyDown(KeyCode.Escape))
 //			NetworkClient.
 	}
+
+    [ClientRpc]
+    public void MouseRaycast()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+    }
+
+    [ClientRpc]
+    public void SetPlayerDeck(List <Card>PlayerCards)
+    {
+        foreach (Card card in PlayerCards)
+        {
+            card.MakeCard();
+        }
+    }
 
 	[ClientRpc]
 	public void RpcName(){
