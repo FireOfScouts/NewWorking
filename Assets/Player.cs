@@ -30,7 +30,7 @@ public class Player : NetworkBehaviour {
 //	}
 	[ClientRpc]
 	public void RpcName(){
-//		if(isLocalPlayer)
+		if(isLocalPlayer)
 			CmdGetPlayerName(nameInput.textComponent.text);
 	}
 

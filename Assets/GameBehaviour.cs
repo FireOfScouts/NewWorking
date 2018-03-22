@@ -24,7 +24,7 @@ public class GameBehaviour : NetworkBehaviour {
 	}
 
 	void AskNames(){
-//		foreach (Player p in players)
+		foreach (Player p in players)
 			p.RpcName();
 	}
 
