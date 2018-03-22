@@ -28,9 +28,14 @@ public class Player : NetworkBehaviour {
 //		Game
 //	
 //	}
+	[ClientRpc]
+	public void RpcName(){
+		CmdGetPlayerName(nameInput.text);
+	}
+
 	[Command]
-	public void CmdGetPlayerName(){
-		playerName = nameInput.text;
+	void CmdGetPlayerName(string n){
+		playerName = n;
 		Debug.Log (playerName);
 	}
 

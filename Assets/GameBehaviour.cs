@@ -25,7 +25,7 @@ public class GameBehaviour : NetworkBehaviour {
 
 	void ShowNames(){
 		foreach (Player p in players)
-			p.CmdGetPlayerName();
+			p.RpcName();
 	}
 
 	public void AddPlayer(Player p){
