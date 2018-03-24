@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Player : NetworkBehaviour {
-    List <Card>hand;
+    public List <Card>hand;
 	InputField nameInput;
 	[SyncVar]
 	public string playerName;
@@ -55,17 +55,23 @@ public class Player : NetworkBehaviour {
 //		foreach (Card c in card)
 //			GameBehaviour.gb.TableCards(c);
 	}
-	[Command]
-	public void CmdRecieveCards(/*List<Card> addTheseCards*/){
-//		foreach (Card c in addTheseCards)
-//			hand.Add (c);
-//		RpcRecieveCards (hand);
+
+	public void RecieveCards(Card addTheseCards){
+		hand.Add (addTheseCards);
+		RpcResetHand (hand.Count);
+		foreach(Card c in hand)
+			RpcRecieveCards (/*c as GameObject*/);
 	}
 	[ClientRpc]
-	void RpcRecieveCards(/*List<Card> newHand*/){
+	void RpcResetHand(int count){
+		if (isLocalPlayer)
+			hand = new List<Card> (count);
+	}
+
+	[ClientRpc]
+	void RpcRecieveCards(/*GameObject newCard*/){
 //		if (isLocalPlayer)
-//			hand = newHand;
-//			Debug.Log ("Player ( " + this.gameObject.name + " recieved a card" );
+//			hand.Add (newCard.GetComponent<Card>());
 	}
     [Command]
     void CmdGiveCard(GameObject card){
