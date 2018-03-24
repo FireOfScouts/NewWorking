@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 397041075}
   - component: {fileID: 397041074}
+  - component: {fileID: 397041073}
   m_Layer: 0
   m_Name: GameBehaviour
   m_TagString: Untagged
@@ -267,6 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d87223bedfa9b4485e1e4ff34019be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardType: 4300440048005300
+  CardValue: 3200330034003500360037003800390031004a0051004b004100
+  StartGame: {fileID: 0}
 --- !u!114 &397041074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,7 +572,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &934845245
