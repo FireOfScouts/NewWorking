@@ -265,6 +265,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< HEAD
 --- !u!114 &397041073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,6 +280,8 @@ MonoBehaviour:
   CardType: 4300440048005300
   CardValue: 3200330034003500360037003800390031004a0051004b004100
   StartGame: {fileID: 934845244}
+=======
+>>>>>>> parent of 87be975... Revert "last update"
 --- !u!114 &397041074
 MonoBehaviour:
   m_ObjectHideFlags: 0
