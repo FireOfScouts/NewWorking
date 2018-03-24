@@ -67,12 +67,21 @@ public class GameBehaviour : NetworkBehaviour {
 				return i;
 		return -1;
 	}
-    public void RecieveCard(Card c){
+    public void TableCard(List<Card> c){
         Table.Add(c);
     }
+
+	List<Card> Deal(int amountOfCards){
+		List<Card> cards = new List<Card>(amountOfCards);
+		for (int i = 0; i < amountOfCards; i++)
+			cards.Add (RandomCardFromDeck());
+		return cards;
+	}
+
     public void startGame(){
         AskNames();
-        // give out cards 
+		for (int i = 0; i < players.Count; i++)
+			players[i].CmdRecieveCards( Deal (2));
         Destroy(StartGame);
     }
 }

@@ -52,8 +52,22 @@ public class Player : NetworkBehaviour {
 	void CmdDefaultName(){
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
 	}
-    [Command]
-    void CmdGiveCard(GameObject card){
-        GameBehaviour.gb.RecieveCard(card.GetComponent<Card>());
-    }
+	[Command]
+	void CmdTableCards(List<Card> card){
+		GameBehaviour.gb.TableCards(card);
+	}
+	[Command]
+	public void CmdRecieveCards(List<Card> addTheseCards){
+		foreach (Card c in addTheseCards)
+			hand.Add (c);
+		RpcRecieveCards (hand);
+	}
+	[ClientRpc]
+	void RpcRecieveCards(List<Card> newHand){
+		if (isLocalPlayer)
+			hand = newHand;
+	}
+		//	[ClientRpc]
+//	void
+
 }
