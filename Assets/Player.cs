@@ -31,7 +31,7 @@ public class Player : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcName(){
 		if (isLocalPlayer) {
-//			nameInput.gameObject.SetActive (false);
+			nameInput.gameObject.SetActive (false);
 			CmdGetPlayerName (nameInput.textComponent.text);
 		}
 	}
