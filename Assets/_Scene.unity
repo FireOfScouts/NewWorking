@@ -256,8 +256,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
-=======
 --- !u!114 &397041073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d87223bedfa9b4485e1e4ff34019be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
->>>>>>> parent of 8f637da... last update
 --- !u!114 &397041074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,7 +556,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 934845245}
   m_OnClick:
     m_PersistentCalls:
-<<<<<<< HEAD
       m_Calls:
       - m_Target: {fileID: 0}
         m_MethodName: startGame
@@ -572,9 +568,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-=======
       m_Calls: []
->>>>>>> parent of 8f637da... last update
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &934845245
