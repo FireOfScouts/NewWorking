@@ -31,7 +31,8 @@ public class GameBehaviour : NetworkBehaviour {
 //		int je = enum.GetNam
 //		for (int i =0; i< j ;i++)
 
-
+        Table = new List<Card>();
+        Deck= new List<Card>(CardType.Count + CardValue.Count);
 		for (int i = 0; i < CardType.Count; i++)
 			for (int j = 0; j < CardValue.Count; j++)
 				Deck.Add (new Card (CardType [i], CardValue [j]));
@@ -41,7 +42,7 @@ public class GameBehaviour : NetworkBehaviour {
 
 	void Update () {
 //		Debug.Log ("Amount of players connected: " + players.Count);
-		if (Input.GetKeyDown(KeyCode.Q))
+//		if (Input.GetKeyDown(KeyCode.Q))
 			AskNames ();
 	}
 
