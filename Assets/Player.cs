@@ -52,10 +52,10 @@ public class Player : NetworkBehaviour {
 	void CmdDefaultName(){
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
 	}
-	[Command]
-	void CmdTableCards(List<Card> card){
-		GameBehaviour.gb.TableCards(card);
-	}
+//	[Command]
+//	void CmdTableCards(Card card){
+//		GameBehaviour.gb.TableCards(card);
+//	}
 	[Command]
 	public void CmdRecieveCards(List<Card> addTheseCards){
 		foreach (Card c in addTheseCards)

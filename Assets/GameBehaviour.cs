@@ -68,7 +68,7 @@ public class GameBehaviour : NetworkBehaviour {
 				return i;
 		return -1;
 	}
-    public void TableCard(List<Card> c){
+    public void TableCard(Card c){
         Table.Add(c);
     }
 
