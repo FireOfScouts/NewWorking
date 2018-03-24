@@ -51,19 +51,24 @@ public class Player : NetworkBehaviour {
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
 	}
 	[Command]
-	void CmdTableCards(List<Card> card){
-		foreach (Card c in card)
-			GameBehaviour.gb.TableCards(c);
+	void CmdTableCards(){
+//		foreach (Card c in card)
+//			GameBehaviour.gb.TableCards(c);
 	}
 	[Command]
-	public void CmdRecieveCards(List<Card> addTheseCards){
-		foreach (Card c in addTheseCards)
-			hand.Add (c);
-		RpcRecieveCards (hand);
+	public void CmdRecieveCards(/*List<Card> addTheseCards*/){
+//		foreach (Card c in addTheseCards)
+//			hand.Add (c);
+//		RpcRecieveCards (hand);
 	}
 	[ClientRpc]
-	void RpcRecieveCards(List<Card> newHand){
-		if (isLocalPlayer)
-			hand = newHand;
+	void RpcRecieveCards(/*List<Card> newHand*/){
+//		if (isLocalPlayer)
+//			hand = newHand;
+//			Debug.Log ("Player ( " + this.gameObject.name + " recieved a card" );
 	}
+    [Command]
+    void CmdGiveCard(GameObject card){
+//		GameBehaviour.gb.TableCards(card.GetComponent<Card>());
+    }
 }
