@@ -26,6 +26,8 @@ public class Player : NetworkBehaviour {
 	void Update(){
 		if (!isLocalPlayer)
 			return;
+//		if(Input.GetKeyDown(KeyCode.Escape))
+//			NetworkClient.
 	}
 
 	[ClientRpc]
@@ -52,8 +54,7 @@ public class Player : NetworkBehaviour {
 	}
 	[Command]
 	void CmdTableCards(List<Card> card){
-		foreach (Card c in card)
-			GameBehaviour.gb.TableCards(c);
+		GameBehaviour.gb.TableCards(card);
 	}
 	[Command]
 	public void CmdRecieveCards(List<Card> addTheseCards){
@@ -66,4 +67,7 @@ public class Player : NetworkBehaviour {
 		if (isLocalPlayer)
 			hand = newHand;
 	}
+		//	[ClientRpc]
+//	void
+
 }
