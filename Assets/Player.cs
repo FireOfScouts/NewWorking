@@ -23,58 +23,55 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
-	void Update(){
-		if (!isLocalPlayer)
-			return;
-	}
-
-	[ClientRpc]
-	public void RpcName(){
-		if (isLocalPlayer) {
-			nameInput.gameObject.SetActive (false);
-			CmdGetPlayerName (nameInput.textComponent.text);
-		}
-	}
-
+	#region Commands
 	[Command]
 	void CmdGetPlayerName(string n){
 		playerName = n;
+		gameObject.name = playerName;
 	}
-
 	[Command]
 	void CmdAddPlayer(){
 		GameBehaviour.gb.AddPlayer (this);
 	}
-
 	[Command]
 	void CmdDefaultName(){
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
+		gameObject.name = playerName;
 	}
 	[Command]
 	void CmdTableCards(){
-//		foreach (Card c in card)
-//			GameBehaviour.gb.TableCards(c);
+		
 	}
-
-	public void RecieveCards(Card addTheseCards){
-		hand.Add (addTheseCards);
+	[Command]
+	public void CmdRecieveCards(char t,char v ){
+		if (hand == null)
+			hand = new List<Card> ();
+		Card card = new Card (t,v); 
+		hand.Add (card);
 		RpcResetHand (hand.Count);
 		foreach(Card c in hand)
-			RpcRecieveCards (/*c as GameObject*/);
+			RpcRecieveCards (c.type,c.value);
 	}
+	#endregion
+	#region ClientRpc's
 	[ClientRpc]
 	void RpcResetHand(int count){
-		if (isLocalPlayer)
-			hand = new List<Card> (count);
+		if (!isLocalPlayer) return;
+		hand = new List<Card> (count);
 	}
-
 	[ClientRpc]
-	void RpcRecieveCards(/*GameObject newCard*/){
-//		if (isLocalPlayer)
-//			hand.Add (newCard.GetComponent<Card>());
+	void RpcRecieveCards(char t, char v){
+		if (!isLocalPlayer) return;
+		Card newCard = new Card (t,v);
+		hand.Add (newCard);
 	}
-    [Command]
-    void CmdGiveCard(GameObject card){
-//		GameBehaviour.gb.TableCards(card.GetComponent<Card>());
-    }
+	[ClientRpc]
+	public void RpcName(){
+		if (!isLocalPlayer) return;
+		nameInput.gameObject.SetActive (false);
+		if (nameInput.textComponent.text != "")
+			playerName = nameInput.textComponent.text;
+		CmdGetPlayerName (playerName);
+	}
+	#endregion
 }
