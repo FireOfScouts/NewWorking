@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4678774793654706}
   - component: {fileID: 212497081782803052}
   m_Layer: 0
-  m_Name: 2H
+  m_Name: PrefabCard
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

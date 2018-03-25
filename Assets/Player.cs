@@ -9,8 +9,10 @@ public class Player : NetworkBehaviour {
 	InputField nameInput;
 	[SyncVar]
 	public string playerName;
-	
-	void Start () {
+    Sprite thissprite;
+    GameObject currentGameObject;
+
+    void Start () {
 		if (isLocalPlayer) {
 			nameInput = GameObject.Find("NameInput").GetComponent<InputField>();
 			if (isServer) {
@@ -23,33 +25,23 @@ public class Player : NetworkBehaviour {
 		}
 	}
 
-	void Update(){
-		if (!isLocalPlayer)
-			return;
-
-        MouseRaycast();
-//		if(Input.GetKeyDown(KeyCode.Escape))
-//			NetworkClient.
-	}
-
-    [ClientRpc]
-    public void RpcMouseRaycast()
+    void Update()
     {
-        if (Input.GetMouseButton(0))
-        {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        }
+        if (!isLocalPlayer)
+            return;
     }
 
-    [ClientRpc]
-    public void RpcSetPlayerDeck(List <Card>PlayerCards)
+    public void RpcInstantateCard(char type, char value)
     {
-        foreach (Card card in PlayerCards)
-        {
-            card.MakeCard();
-        }
+        Debug.Log(type + "" + value);
+        currentGameObject = Resources.Load("PrefabCard") as GameObject;
+        string path = type + "" + value;
+        Debug.Log(path);
+
+        GameObject SpawnObject = Instantiate(currentGameObject, GameObject.Find("TableHand").transform.position, Quaternion.identity, transform.parent = GameObject.Find("TableHand").transform);
+        SpawnObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(value + "" + type) as Sprite;
     }
+
 
 	#region Commands
 	[Command]
@@ -80,9 +72,16 @@ public class Player : NetworkBehaviour {
 		foreach(Card c in hand)
 			RpcRecieveCards (c.type,c.value);
 	}
-	#endregion
-	#region ClientRpc's
-	[ClientRpc]
+    #endregion
+    #region ClientRpc's
+    public void RpcSetPlayerDeck(Card currentCard)
+    {
+        foreach (Card card in hand)
+        {
+            RpcInstantateCard(currentCard.type, currentCard.value);
+        }
+    }
+    [ClientRpc]
 	void RpcResetHand(int count){
 		if (!isLocalPlayer) return;
 		hand = new List<Card> (count);
@@ -92,7 +91,8 @@ public class Player : NetworkBehaviour {
 		if (!isLocalPlayer) return;
 		Card newCard = new Card (t,v);
 		hand.Add (newCard);
-	}
+        RpcSetPlayerDeck(newCard);
+    }
 	[ClientRpc]
 	public void RpcName(){
 		if (!isLocalPlayer) return;
