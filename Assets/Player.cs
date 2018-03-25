@@ -33,7 +33,7 @@ public class Player : NetworkBehaviour {
 	}
 
     [ClientRpc]
-    public void MouseRaycast()
+    public void RpcMouseRaycast()
     {
         if (Input.GetMouseButton(0))
         {
@@ -43,7 +43,7 @@ public class Player : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void SetPlayerDeck(List <Card>PlayerCards)
+    public void RpcSetPlayerDeck(List <Card>PlayerCards)
     {
         foreach (Card card in PlayerCards)
         {
