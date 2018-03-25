@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
-{
+
+public class Card {
 
     public char type, value;
     Sprite thissprite;
@@ -21,7 +21,7 @@ public class Card : MonoBehaviour
 
     public void MakeCard()
     {
-        GameObject SpawnObject = Instantiate(currentGameObject, GameObject.Find("TableHand").transform.position, Quaternion.identity, transform.parent = GameObject.Find("TableHand").transform);
+        //GameObject SpawnObject = Instantiate(currentGameObject, GameObject.Find("TableHand").transform.position, Quaternion.identity, transform.parent = GameObject.Find("TableHand").transform);
         SpawnObject.GetComponent<SpriteRenderer>().sprite = thissprite;
     }
 }

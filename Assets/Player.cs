@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Player : NetworkBehaviour {
-    List <Card>hand;
+    public List <Card>hand;
 	InputField nameInput;
 	[SyncVar]
 	public string playerName;
@@ -51,29 +51,55 @@ public class Player : NetworkBehaviour {
         }
     }
 
-	[ClientRpc]
-	public void RpcName(){
-		if(isLocalPlayer)
-			CmdGetPlayerName(nameInput.textComponent.text);
-	}
-
+	#region Commands
 	[Command]
 	void CmdGetPlayerName(string n){
 		playerName = n;
-		GameBehaviour.gb.RecieveNames (playerName);
+		gameObject.name = playerName;
 	}
-
 	[Command]
 	void CmdAddPlayer(){
 		GameBehaviour.gb.AddPlayer (this);
 	}
-
 	[Command]
 	void CmdDefaultName(){
 		playerName = "Player" + GameBehaviour.gb.GetPlayernumber (this);
+		gameObject.name = playerName;
 	}
-    [Command]
-    void CmdGiveCard(){
-        
-    }
+	[Command]
+	void CmdTableCards(){
+		
+	}
+	[Command]
+	public void CmdRecieveCards(char t,char v ){
+		if (hand == null)
+			hand = new List<Card> ();
+		Card card = new Card (t,v); 
+		hand.Add (card);
+		RpcResetHand (hand.Count);
+		foreach(Card c in hand)
+			RpcRecieveCards (c.type,c.value);
+	}
+	#endregion
+	#region ClientRpc's
+	[ClientRpc]
+	void RpcResetHand(int count){
+		if (!isLocalPlayer) return;
+		hand = new List<Card> (count);
+	}
+	[ClientRpc]
+	void RpcRecieveCards(char t, char v){
+		if (!isLocalPlayer) return;
+		Card newCard = new Card (t,v);
+		hand.Add (newCard);
+	}
+	[ClientRpc]
+	public void RpcName(){
+		if (!isLocalPlayer) return;
+		nameInput.gameObject.SetActive (false);
+		if (nameInput.textComponent.text != "")
+			playerName = nameInput.textComponent.text;
+		CmdGetPlayerName (playerName);
+	}
+	#endregion
 }
