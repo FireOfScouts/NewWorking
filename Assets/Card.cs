@@ -19,10 +19,6 @@ public class Card {
         thissprite = Resources.Load(path) as Sprite;
     }
 
-	public Card( char t, char v){
-		type = t;
-		value = v;
-	}
     public void MakeCard()
     {
         //GameObject SpawnObject = Instantiate(currentGameObject, GameObject.Find("TableHand").transform.position, Quaternion.identity, transform.parent = GameObject.Find("TableHand").transform);
