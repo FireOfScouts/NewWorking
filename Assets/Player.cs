@@ -59,8 +59,8 @@ public class Player : NetworkBehaviour {
 		gameObject.name = playerName;
 	}
 	[Command]
-	void CmdTableCards(){
-		
+	void CmdTableCards(char t,char v){
+		GameBehaviour.gb.TableCards (t, v);
 	}
 	[Command]
 	public void CmdRecieveCards(char t,char v ){
@@ -74,6 +74,10 @@ public class Player : NetworkBehaviour {
 	}
     #endregion
     #region ClientRpc's
+	void TableCard(GameObject c){
+		char[] tv = c.name.Split (' ', 2);
+		CmdTableCards (tv[1],tv[0]);
+	}
     public void RpcSetPlayerDeck(Card currentCard)
     {
         foreach (Card card in hand)
