@@ -33,13 +33,15 @@ public class Player : NetworkBehaviour {
 
     public void RpcInstantateCard(char type, char value)
     {
-        Debug.Log(type + "" + value);
+        Debug.Log(value + "" + type);
         currentGameObject = Resources.Load("PrefabCard") as GameObject;
-        string path = type + "" + value;
+        string path = value + "" + type;
         Debug.Log(path);
 
         GameObject SpawnObject = Instantiate(currentGameObject, GameObject.Find("TableHand").transform.position, Quaternion.identity, transform.parent = GameObject.Find("TableHand").transform);
-        SpawnObject.GetComponent<SpriteRenderer>().sprite = Resources.Load(value + "" + type) as Sprite;
+        SpawnObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(value + "" + type);
+        SpawnObject.GetComponent<RectTransform>().sizeDelta = new Vector2(336, 452);
+        SpawnObject.name = value + " " + type;
     }
 
 
@@ -76,6 +78,11 @@ public class Player : NetworkBehaviour {
     #region ClientRpc's
     public void RpcSetPlayerDeck(Card currentCard)
     {
+        for (int i = 0; i < GameObject.Find("TableHand").transform.childCount; i++)
+        {
+            Destroy(GameObject.Find("TableHand").transform.GetChild(i).gameObject);
+        }
+
         foreach (Card card in hand)
         {
             RpcInstantateCard(currentCard.type, currentCard.value);
