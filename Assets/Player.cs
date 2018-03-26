@@ -75,8 +75,7 @@ public class Player : NetworkBehaviour {
     #endregion
     #region ClientRpc's
 	void TableCard(GameObject c){
-		char[] tv = c.name.Split (' ', 2);
-		CmdTableCards (tv[1],tv[0]);
+		CmdTableCards (c.name.ToCharArray()[0],c.name.ToCharArray()[1]);
 	}
     public void RpcSetPlayerDeck(Card currentCard)
     {
