@@ -9,8 +9,10 @@ public class Player : NetworkBehaviour {
 	InputField nameInput;
 	[SyncVar]
 	public string playerName;
-    Sprite thissprite;
-    GameObject currentGameObject;
+
+	GameObject cardPrefab;
+	GameObject canvas;
+	GameObject tablePlayer;
 
     void Start () {
 		if (isLocalPlayer) {
@@ -20,28 +22,24 @@ public class Player : NetworkBehaviour {
 				Destroy (this.gameObject);
 				return;
 			}
+			canvas = GameObject.Find ("Canvas");
+			cardPrefab = Resources.Load("PrefabCard") as GameObject;
+
+			#if UNITY_ANDROID || UNITY_IOS
+			Screen.orientation = ScreenOrientation.LandscapeLeft;
+			#endif
+
 			CmdAddPlayer ();
 			CmdDefaultName ();
+			CreateTable ();
 		}
 	}
 
-    void Update()
-    {
-        if (!isLocalPlayer)
-            return;
-    }
-
-    public void RpcInstantateCard(char type, char value)
-    {
-        Debug.Log(value + "" + type);
-        currentGameObject = Resources.Load("PrefabCard") as GameObject;
-        string path = value + "" + type;
-        Debug.Log(path);
-
-        GameObject SpawnObject = Instantiate(currentGameObject, GameObject.Find("TableHand").transform.position, Quaternion.identity, transform.parent = GameObject.Find("TableHand").transform);
-        SpawnObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(value + "" + type);
+	public void InstantiateCard(Card card){
+		GameObject SpawnObject = Instantiate(cardPrefab, GameObject.Find("TableHand").transform);
+        SpawnObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(card.value + "" + card.type);
         SpawnObject.GetComponent<RectTransform>().sizeDelta = new Vector2(336, 452);
-        SpawnObject.name = value + " " + type;
+		SpawnObject.name = card.value.ToString() + card.type.ToString();
     }
 
 
@@ -61,47 +59,43 @@ public class Player : NetworkBehaviour {
 		gameObject.name = playerName;
 	}
 	[Command]
-	void CmdTableCards(char t,char v){
-		GameBehaviour.gb.TableCards (t, v);
+	void CmdTableCards(char v,char t){
+		GameBehaviour.gb.TableCards (v, t);
 	}
 	[Command]
-	public void CmdRecieveCards(char t,char v ){
+	public void CmdRecieveCards(char v,char t ){
 		if (hand == null)
 			hand = new List<Card> ();
-		Card card = new Card (t,v); 
+		Card card = new Card (v,t); 
 		hand.Add (card);
-		RpcResetHand (hand.Count);
-		foreach(Card c in hand)
-			RpcRecieveCards (c.type,c.value);
+//		RpcResetHand (hand.Count);
+//		foreach(Card c in hand)
+			RpcRecieveCards (v,t);
 	}
     #endregion
     #region ClientRpc's
 	public void TableCard(GameObject c){
-		CmdTableCards (c.name.ToCharArray()[0],c.name.ToCharArray()[1]);
+		CmdTableCards (c.name.ToCharArray()[1],c.name.ToCharArray()[0]);
+		Destroy (c);
 	}
-    public void RpcSetPlayerDeck(Card currentCard)
-    {
-        for (int i = 0; i < GameObject.Find("TableHand").transform.childCount; i++)
-        {
-            Destroy(GameObject.Find("TableHand").transform.GetChild(i).gameObject);
-        }
 
-        foreach (Card card in hand)
-        {
-            RpcInstantateCard(currentCard.type, currentCard.value);
-        }
-    }
-    [ClientRpc]
-	void RpcResetHand(int count){
-		if (!isLocalPlayer) return;
-		hand = new List<Card> (count);
+	void CreateTable(){
+		tablePlayer = Instantiate (Resources.Load<GameObject> ("Table"), canvas.transform);
+		tablePlayer.transform.GetChild (0).GetComponent<DropZone> ().player = this;
 	}
+
+//    [ClientRpc]
+//	void RpcResetHand(int count){
+//		if (!isLocalPlayer) return;
+//		hand = new List<Card> (count);
+//	}
+
 	[ClientRpc]
-	void RpcRecieveCards(char t, char v){
+	public void RpcRecieveCards(char v, char t){
 		if (!isLocalPlayer) return;
-		Card newCard = new Card (t,v);
+		Card newCard = new Card (v,t);
 		hand.Add (newCard);
-        RpcSetPlayerDeck(newCard);
+		InstantiateCard(newCard);
     }
 	[ClientRpc]
 	public void RpcName(){

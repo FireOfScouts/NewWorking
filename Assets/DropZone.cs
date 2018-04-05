@@ -4,10 +4,11 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class DropZone : MonoBehaviour, IDropHandler{
-
+	public Player player;
 
     public void OnDrop(PointerEventData eventData)
     {
-        GameObject.FindWithTag("Player").GetComponent<Player>().TableCard(eventData.pointerDrag.gameObject);
+		if (player != null)
+        player.TableCard(eventData.pointerDrag.gameObject);
     }
 }

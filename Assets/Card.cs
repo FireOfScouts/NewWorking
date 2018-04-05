@@ -8,10 +8,10 @@ public class Card {
     public char type, value;
 
 
-    public Card(char t, char v)
-    {
+    public Card(char v, char t)
+	{
+		value = v;
         type = t;
-        value = v;
     }
 
 }
