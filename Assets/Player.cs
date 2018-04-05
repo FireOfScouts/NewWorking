@@ -85,6 +85,8 @@ public class Player : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcRecieveCards(char v, char t){
 		if (!isLocalPlayer) return;
+		if (hand == null)
+			hand = new List<Card> ();
 		Card newCard = new Card (v,t);
 		hand.Add (newCard);
 		InstantiateCard(newCard);
