@@ -12,7 +12,7 @@ public class Player : NetworkBehaviour {
 	GameObject cardPrefab;
 	GameObject tablePlayer;
 
-    int currentpos = 0;
+    int currentpos = 168;
 
     void Start () {
 		if (isLocalPlayer) {
@@ -33,7 +33,7 @@ public class Player : NetworkBehaviour {
 		GameObject SpawnObject = Instantiate(cardPrefab, GameObject.Find("TableHand").transform);
         SpawnObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(card.value + "" + card.type);
         SpawnObject.GetComponent<RectTransform>().sizeDelta = new Vector2(336, 452);
-        SpawnObject.GetComponent<RectTransform>().position = new Vector2(currentpos, 0);
+        SpawnObject.GetComponent<RectTransform>().position = new Vector2(currentpos, 226);
 		SpawnObject.name = card.value.ToString() + card.type.ToString();
         currentpos += 100;
     }
