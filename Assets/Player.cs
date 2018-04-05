@@ -28,11 +28,11 @@ public class Player : NetworkBehaviour {
 	}
 
 	public void InstantiateCard(Card card){
-        float currentpos = -589;
+        float currentpos = -768;
 		GameObject SpawnObject = Instantiate(cardPrefab, GameObject.Find("TableHand").transform);
         SpawnObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(card.value + "" + card.type);
         SpawnObject.GetComponent<RectTransform>().sizeDelta = new Vector2(336, 452);
-        SpawnObject.GetComponent<RectTransform>().position = new Vector2(currentpos, 13);
+        SpawnObject.GetComponent<RectTransform>().position = new Vector2(currentpos, -7);
 		SpawnObject.name = card.value.ToString() + card.type.ToString();
         currentpos++;
     }
