@@ -67,7 +67,7 @@ public class Player : NetworkBehaviour {
     #endregion
     #region ClientRpc's
 	public void TableCard(GameObject c){
-		CmdTableCards (c.name.ToCharArray()[1],c.name.ToCharArray()[0]);
+		CmdTableCards (c.name.ToCharArray()[0],c.name.ToCharArray()[1]);
 		Destroy (c);
 	}
 
