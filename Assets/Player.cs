@@ -34,7 +34,7 @@ public class Player : NetworkBehaviour {
         RectTransform rect = SpawnObject.GetComponent<RectTransform>();
         SpawnObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(card.value + "" + card.type);
         rect.sizeDelta = new Vector2(336, 452);
-        rect.position = new Vector2(rect.sizeDelta.x / 2 + Screen.width / 0.1f * currentpos, Screen.height / 0.3f);
+        rect.position = new Vector2(rect.sizeDelta.x / 2 + Screen.width * 0.1f * currentpos, Screen.height * 0.3f);
 		SpawnObject.name = card.value.ToString() + card.type.ToString();
         currentpos++;
     }
