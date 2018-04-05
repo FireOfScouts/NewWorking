@@ -35,7 +35,7 @@ public class Player : NetworkBehaviour {
         SpawnObject.GetComponent<RectTransform>().sizeDelta = new Vector2(336, 452);
         SpawnObject.GetComponent<RectTransform>().position = new Vector2(currentpos, 0);
 		SpawnObject.name = card.value.ToString() + card.type.ToString();
-        currentpos++;
+        currentpos += 100;
     }
 
 
