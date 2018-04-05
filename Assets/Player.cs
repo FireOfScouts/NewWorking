@@ -6,12 +6,10 @@ using UnityEngine.UI;
 
 public class Player : NetworkBehaviour {
     public List <Card>hand;
-	InputField nameInput;
 	[SyncVar]
 	public string playerName;
 
 	GameObject cardPrefab;
-	GameObject canvas;
 	GameObject tablePlayer;
 
     void Start () {
@@ -21,7 +19,7 @@ public class Player : NetworkBehaviour {
 				return;
 			}
 			cardPrefab = Resources.Load("PrefabCard") as GameObject;
-			Starter.s.nameInp.SetActive (true);
+			Starter.s.nameInp.gameObject.SetActive (true);
 
 			CmdAddPlayer ();
 			CmdDefaultName ();
@@ -74,7 +72,7 @@ public class Player : NetworkBehaviour {
 	}
 
 	void CreateTable(){
-		tablePlayer = Instantiate (Resources.Load<GameObject> ("Table"), canvas.transform);
+		tablePlayer = Instantiate (Resources.Load<GameObject> ("Table"), Starter.s.canvas.transform);
 		tablePlayer.transform.GetChild (0).GetComponent<DropZone> ().player = this;
 	}
 
@@ -94,9 +92,9 @@ public class Player : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcName(){
 		if (!isLocalPlayer) return;
-		nameInput.gameObject.SetActive (false);
-		if (nameInput.textComponent.text != "")
-			playerName = nameInput.textComponent.text;
+		Starter.s.nameInp.gameObject.SetActive (false);
+		if (Starter.s.nameInp.textComponent.text != "")
+			playerName = Starter.s.nameInp.textComponent.text;
 		CmdGetPlayerName (playerName);
 	}
 	#endregion

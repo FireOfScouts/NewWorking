@@ -7,7 +7,7 @@ public class Starter : MonoBehaviour {
 	public static Starter s;
 
 	public GameObject canvas;
-	public GameObject nameInp;
+	public UnityEngine.UI.InputField nameInp;
 	public GameObject button;
 
 	void Start () {
@@ -18,10 +18,10 @@ public class Starter : MonoBehaviour {
 		#endif
 
 		canvas = GameObject.Find ("Canvas");
-		nameInp = canvas.transform.GetChild (0).gameObject;
+		nameInp = canvas.transform.GetChild (0).GetComponent<UnityEngine.UI.InputField>();
 		button = canvas.transform.GetChild (1).gameObject;
 
-		nameInp.SetActive (false);
+		nameInp.gameObject.SetActive (false);
 		button.SetActive (false);
 	}
 }
