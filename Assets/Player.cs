@@ -16,18 +16,12 @@ public class Player : NetworkBehaviour {
 
     void Start () {
 		if (isLocalPlayer) {
-			nameInput = GameObject.Find("NameInput").GetComponent<InputField>();
 			if (isServer) {
-				Destroy (nameInput.gameObject);
 				Destroy (this.gameObject);
 				return;
 			}
-			canvas = GameObject.Find ("Canvas");
 			cardPrefab = Resources.Load("PrefabCard") as GameObject;
-
-			#if UNITY_ANDROID || UNITY_IOS
-			Screen.orientation = ScreenOrientation.LandscapeLeft;
-			#endif
+			Starter.s.nameInp.SetActive (true);
 
 			CmdAddPlayer ();
 			CmdDefaultName ();
